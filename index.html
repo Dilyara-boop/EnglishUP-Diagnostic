@@ -1,0 +1,2608 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>English UP — Диагностика английского</title>
+  <link rel="icon" type="image/png" href="favicon.png">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #eef5ff, #f9fbff);
+      color: #1f2a44;
+      min-height: 100vh;
+    }
+
+    .page {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 35px 20px;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 1050px;
+      background: white;
+      border-radius: 28px;
+      padding: 50px;
+      box-shadow: 0 20px 60px rgba(60, 90, 140, 0.15);
+    }
+
+    .start-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 50px;
+      align-items: center;
+    }
+
+    .brand {
+      display: inline-block;
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      color: #4667d8;
+      background: #eef2ff;
+      padding: 10px 16px;
+      border-radius: 999px;
+      margin-bottom: 24px;
+    }
+
+    h1 {
+      font-size: 48px;
+      line-height: 1.08;
+      margin-bottom: 20px;
+    }
+
+    .subtitle {
+      font-size: 19px;
+      line-height: 1.6;
+      color: #64708a;
+      margin-bottom: 30px;
+    }
+
+    .benefits {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+
+    .benefit {
+      background: #f7f9ff;
+      border: 1px solid #e4e9f7;
+      border-radius: 18px;
+      padding: 17px 18px;
+      font-weight: 700;
+    }
+
+    .form-box {
+      background: #f8faff;
+      border-radius: 24px;
+      padding: 30px;
+      border: 1px solid #e6ebf5;
+    }
+
+    .form-box h2 {
+      font-size: 24px;
+      margin-bottom: 8px;
+    }
+
+    .form-box p {
+      color: #758097;
+      margin-bottom: 24px;
+    }
+
+    label {
+      display: block;
+      font-weight: 700;
+      margin: 18px 0 8px;
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 15px 16px;
+      border: 1px solid #d9dfeb;
+      border-radius: 14px;
+      font-size: 16px;
+      background: white;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 24px;
+      border: none;
+      border-radius: 15px;
+      padding: 17px;
+      font-size: 17px;
+      font-weight: 800;
+      color: white;
+      background: linear-gradient(135deg, #5f72e8, #7a63dd);
+      cursor: pointer;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+    }
+
+    .small-note {
+      text-align: center;
+      margin-top: 14px;
+      color: #8a93a7;
+      font-size: 13px;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    /* TEST */
+
+    .quiz-wrap {
+      max-width: 760px;
+      margin: auto;
+    }
+
+    .quiz-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 18px;
+    }
+
+    .quiz-title {
+      font-weight: 800;
+      color: #4667d8;
+    }
+
+    .question-counter {
+      color: #7c879d;
+      font-size: 14px;
+    }
+
+    .progress {
+      height: 9px;
+      background: #edf0f7;
+      border-radius: 99px;
+      overflow: hidden;
+      margin-bottom: 35px;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0;
+      background: linear-gradient(90deg, #5f72e8, #7a63dd);
+      transition: width .3s;
+    }
+
+    .category {
+      font-size: 14px;
+      color: #7b68df;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .question {
+      font-size: 30px;
+      line-height: 1.3;
+      margin-bottom: 25px;
+    }
+
+    .answers {
+      display: grid;
+      gap: 12px;
+    }
+
+    .answer-btn {
+      margin: 0;
+      text-align: left;
+      background: #f8faff;
+      color: #24304a;
+      border: 1px solid #e0e6f2;
+      font-weight: 600;
+      transition: .2s;
+    }
+
+    .answer-btn:hover {
+      background: #eef2ff;
+      border-color: #8da0f0;
+      box-shadow: none;
+    }
+
+    /* RESULTS */
+
+    .results {
+      max-width: 760px;
+      margin: auto;
+      text-align: center;
+    }
+
+    .score-circle {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      margin: 25px auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      background: #eef2ff;
+      color: #4e64d8;
+    }
+
+    .score-number {
+      font-size: 38px;
+      font-weight: 900;
+    }
+
+    .level {
+      font-size: 24px;
+      margin: 15px 0;
+    }
+
+    .result-text {
+      color: #69758d;
+      line-height: 1.6;
+      margin-bottom: 28px;
+    }
+
+    .category-results {
+      text-align: left;
+      display: grid;
+      gap: 14px;
+      margin: 30px 0;
+    }
+
+    .result-row {
+      background: #f8faff;
+      border-radius: 16px;
+      padding: 17px 20px;
+    }
+
+    .result-row strong {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .mini-progress {
+      height: 8px;
+      background: #e5e9f2;
+      border-radius: 99px;
+      overflow: hidden;
+    }
+
+    .mini-progress div {
+      height: 100%;
+      background: linear-gradient(90deg, #5f72e8, #7a63dd);
+    }
+
+    .recommendation {
+      background: #f4f7ff;
+      border-radius: 20px;
+      padding: 24px;
+      text-align: left;
+      line-height: 1.6;
+      margin-top: 25px;
+    }
+
+    .restart {
+      max-width: 330px;
+      margin: 25px auto 0;
+    }
+.info-section {
+  margin-top: 35px;
+  text-align: left;
+}
+
+.info-section h3 {
+  font-size: 23px;
+  margin-bottom: 14px;
+  color: #253250;
+}
+
+.info-section > p {
+  color: #66738d;
+  line-height: 1.7;
+  font-size: 16px;
+}
+
+.info-note {
+  margin-top: 15px;
+  padding: 15px 18px;
+  background: #f7f9ff;
+  border-left: 4px solid #6c75e8;
+  border-radius: 12px;
+  color: #707b91;
+  line-height: 1.5;
+  font-size: 14px;
+}
+
+.topic-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  margin-top: 18px;
+}
+
+.topic-card {
+  background: #f8faff;
+  border: 1px solid #e5e9f4;
+  border-radius: 18px;
+  padding: 20px;
+}
+
+.topic-card strong {
+  display: block;
+  font-size: 17px;
+  margin-bottom: 9px;
+}
+
+.topic-card p {
+  color: #6d7890;
+  line-height: 1.55;
+  font-size: 14px;
+}
+
+.topic-icon {
+  font-size: 27px;
+  margin-bottom: 10px;
+}
+
+.result-scale {
+  display: grid;
+  gap: 11px;
+}
+
+.result-scale div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 16px 18px;
+  background: #f8faff;
+  border-radius: 14px;
+  border: 1px solid #e5e9f4;
+}
+
+.result-scale strong {
+  color: #4357c7;
+}
+
+.result-scale span {
+  color: #69758b;
+  line-height: 1.45;
+}
+
+.parent-note {
+  margin-top: 35px;
+  padding: 22px;
+  text-align: left;
+  background: #fff9e9;
+  border: 1px solid #f3e6b9;
+  border-radius: 18px;
+}
+
+.parent-note strong {
+  font-size: 18px;
+}
+
+.parent-note p {
+  margin-top: 9px;
+  color: #756f60;
+  line-height: 1.6;
+}
+
+.contact-box {
+  margin-top: 35px;
+  padding: 32px;
+  text-align: center;
+  background: linear-gradient(135deg, #eef2ff, #f6f3ff);
+  border-radius: 22px;
+}
+
+.contact-icon {
+  font-size: 35px;
+  margin-bottom: 10px;
+}
+
+.contact-box h3 {
+  font-size: 25px;
+  margin-bottom: 10px;
+}
+
+.contact-box p {
+  color: #69758b;
+  line-height: 1.6;
+  max-width: 560px;
+  margin: auto;
+}
+
+.contact-box button {
+  max-width: 380px;
+}
+
+@media (max-width: 600px) {
+  .topic-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-box {
+    padding: 24px 18px;
+  }
+}
+    @media (max-width: 850px) {
+      .start-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .card {
+        padding: 32px;
+      }
+
+      h1 {
+        font-size: 38px;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .page {
+        padding: 15px;
+      }
+
+      .card {
+        padding: 23px;
+        border-radius: 22px;
+      }
+
+      h1 {
+        font-size: 31px;
+      }
+
+      .benefits {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .benefit {
+        padding: 14px;
+        font-size: 14px;
+      }
+
+      .question {
+        font-size: 24px;
+      }
+
+      .quiz-top {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 5px;
+      }
+    }
+  .analysis-btn {
+  display: block;
+  max-width: 380px;
+  margin: 24px auto 0;
+  padding: 18px 24px;
+  border-radius: 15px;
+  background: linear-gradient(135deg, #5d70eb, #7958df);
+  color: white;
+  text-decoration: none;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 700;
+  transition: 0.2s;
+}
+
+.analysis-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(91, 104, 220, 0.25);
+}
+  
+ .teacher-section {
+  margin-top: 35px;
+  padding: 28px;
+  background: #f8faff;
+  border: 1px solid #e5e9f4;
+  border-radius: 22px;
+  display: grid;
+  grid-template-columns: 190px 1fr;
+  gap: 28px;
+  align-items: center;
+  text-align: left;
+}
+
+.teacher-photo {
+  width: 190px;
+}
+
+.photo-placeholder {
+  width: 190px;
+  height: 230px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #e8edff, #eee9ff);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #7180b2;
+  font-weight: 600;
+}
+
+.teacher-label {
+  display: inline-block;
+  color: #5d6ee5;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+}
+
+.teacher-info h3 {
+  margin: 0 0 15px;
+  font-size: 24px;
+  color: #253250;
+}
+
+.teacher-info p {
+  color: #68758d;
+  line-height: 1.6;
+  margin: 0 0 12px;
+}
+
+.teacher-bonus {
+  margin-top: 18px;
+  padding: 14px 16px;
+  background: white;
+  border-radius: 12px;
+  color: #4357c7;
+  font-weight: 600;
+}
+
+@media (max-width: 650px) {
+  .teacher-section {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .teacher-photo {
+    width: 100%;
+  }
+
+  .photo-placeholder {
+    margin: auto;
+  }
+
+  .teacher-info {
+    text-align: left;
+  }
+}
+
+/* Visual refinements */
+body {
+  font-family: "Trebuchet MS", Arial, sans-serif;
+  background:
+    radial-gradient(circle at 8% 10%, rgba(111, 130, 230, 0.13), transparent 28%),
+    radial-gradient(circle at 92% 88%, rgba(111, 177, 205, 0.12), transparent 26%),
+    #f4f7fc;
+}
+
+.page { padding: 52px 22px; }
+
+.card {
+  max-width: 1120px;
+  padding: 58px;
+  border: 1px solid rgba(218, 225, 240, 0.9);
+  box-shadow: 0 28px 80px rgba(57, 76, 125, 0.14);
+}
+
+.start-grid { gap: 64px; }
+
+.brand {
+  color: #4058c5;
+  background: #edf1ff;
+  padding: 11px 17px;
+  letter-spacing: 1.4px;
+}
+
+h1 {
+  max-width: 650px;
+  font-size: clamp(38px, 5vw, 58px);
+  letter-spacing: -0.5px;
+}
+
+.subtitle {
+  max-width: 610px;
+  font-size: 20px;
+  color: #5f6d88;
+}
+
+.benefit {
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+  background: #fbfcff;
+  border-color: #e2e7f2;
+  box-shadow: 0 8px 20px rgba(73, 92, 139, 0.05);
+}
+
+.form-box {
+  padding: 34px;
+  background: #f7f9fe;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+.form-box h2 { font-size: 27px; }
+
+input,
+select {
+  min-height: 54px;
+  border-color: #d5ddec;
+  color: #253250;
+  transition: border-color .2s, box-shadow .2s;
+}
+
+input:focus,
+select:focus {
+  outline: none;
+  border-color: #7384e6;
+  box-shadow: 0 0 0 4px rgba(115, 132, 230, 0.14);
+}
+
+button,
+.analysis-btn {
+  background: linear-gradient(135deg, #536bdc, #715bd3);
+  box-shadow: 0 10px 22px rgba(83, 105, 216, 0.2);
+  transition: transform .2s, box-shadow .2s, filter .2s;
+}
+
+button:hover,
+.analysis-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 28px rgba(83, 105, 216, 0.28);
+  filter: saturate(1.08);
+}
+
+.quiz-wrap,
+.results { max-width: 800px; }
+
+.quiz-title { color: #4058c5; letter-spacing: .3px; }
+
+.progress {
+  height: 11px;
+  background: #e9edf6;
+  margin-bottom: 42px;
+}
+
+.progress-bar { background: linear-gradient(90deg, #536bdc, #70a0d6); }
+
+.question {
+  max-width: 720px;
+  font-size: clamp(26px, 4vw, 36px);
+  letter-spacing: -0.2px;
+}
+
+.answers { gap: 14px; }
+
+.answer-btn {
+  min-height: 62px;
+  padding: 17px 20px;
+  border-radius: 16px;
+  box-shadow: 0 5px 14px rgba(73, 92, 139, 0.04);
+}
+
+.answer-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 9px 20px rgba(73, 92, 139, 0.1);
+}
+
+.score-circle {
+  width: 176px;
+  height: 176px;
+  background: linear-gradient(145deg, #edf1ff, #e3f0fa);
+  box-shadow: 0 16px 34px rgba(78, 100, 216, 0.14);
+}
+
+.score-number { font-size: 44px; }
+
+.category-results { grid-template-columns: repeat(2, 1fr); }
+
+.result-row,
+.recommendation,
+.share-result-box {
+  border: 1px solid #e3e8f3;
+  box-shadow: 0 8px 20px rgba(73, 92, 139, 0.05);
+}
+
+.result-row { background: #fbfcff; }
+.recommendation { background: #f3f6ff; }
+
+.share-result-box {
+  margin-top: 28px;
+  padding: 25px;
+  background: #f8faff;
+  border-radius: 20px;
+  text-align: left;
+}
+
+.share-result-box h3 { margin-bottom: 10px; color: #253250; }
+
+.share-result-box p {
+  color: #69758d;
+  line-height: 1.55;
+}
+
+.share-result-text {
+  margin-top: 16px;
+  padding: 16px;
+  max-height: 220px;
+  overflow: auto;
+  white-space: pre-wrap;
+  background: white;
+  border: 1px solid #e4e8f1;
+  border-radius: 13px;
+  color: #4d5b76;
+  line-height: 1.5;
+  font-size: 14px;
+}
+
+.copy-message { margin-top: 10px; color: #4f65c8; font-size: 14px; }
+
+.teacher-section {
+  grid-template-columns: 230px 1fr;
+  gap: 36px;
+  margin-top: 46px;
+  padding: 32px;
+  background: linear-gradient(135deg, #f5f7ff, #f7fbfd);
+  border-color: #dde5f2;
+  box-shadow: 0 12px 28px rgba(73, 92, 139, 0.07);
+}
+
+.teacher-photo,
+.teacher-photo img {
+  width: 230px;
+  height: 280px;
+}
+
+.teacher-photo img {
+  display: block;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 20px;
+  box-shadow: 0 14px 28px rgba(54, 75, 124, 0.15);
+}
+
+.teacher-label { color: #5266d0; letter-spacing: 1.5px; }
+
+.teacher-info h3 { margin-bottom: 13px; font-size: 29px; }
+
+.teacher-info p { max-width: 650px; font-size: 16px; }
+
+.teacher-bonus {
+  border: 1px solid #e4e8f5;
+  box-shadow: 0 6px 14px rgba(73, 92, 139, 0.06);
+}
+
+@media (max-width: 700px) {
+  .card { padding: 30px 22px; }
+  .category-results { grid-template-columns: 1fr; }
+  .teacher-section {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding: 24px 20px;
+  }
+  .teacher-photo,
+  .teacher-photo img {
+    width: 100%;
+    max-width: 230px;
+    height: 270px;
+    margin: auto;
+  }
+  .teacher-info { text-align: left; }
+}
+
+@media (max-width: 430px) {
+  .page { padding: 18px 10px; }
+  .card { padding: 25px 16px; border-radius: 22px; }
+  .start-grid { gap: 30px; }
+  h1 { font-size: 34px; }
+  .subtitle { font-size: 17px; }
+  .form-box { padding: 22px 17px; }
+  .benefits { gap: 10px; }
+  .benefit { padding: 12px; font-size: 13px; }
+  .question { font-size: 25px; }
+  .answer-btn { min-height: 58px; padding: 15px; }
+  .share-result-box { padding: 20px 16px; }
+}
+ 
+  </style>
+</head>
+
+<body>
+
+<div class="page">
+  <div class="card">
+
+    <!-- СТАРТОВЫЙ ЭКРАН -->
+    <div id="startScreen" class="start-grid">
+
+      <section>
+        <div class="brand">ENGLISH UP</div>
+
+        <h1>Узнайте реальный уровень английского языка</h1>
+
+        <p class="subtitle">
+          Бесплатная диагностика поможет понять, какие темы уже освоены хорошо,
+          а где есть пробелы.
+        </p>
+
+        <div class="benefits">
+          <div class="benefit">⏱️ &nbsp;7 минут</div>
+          <div class="benefit">🎁 &nbsp;Бесплатно</div>
+          <div class="benefit">📊 &nbsp;Результат сразу</div>
+          <div class="benefit">💡 &nbsp;Рекомендации</div>
+        </div>
+      </section>
+
+      <section class="form-box">
+
+        <h2>Начнём диагностику</h2>
+        <p>Укажите несколько данных перед началом.</p>
+
+        <label for="studentName">Имя</label>
+        <input
+          id="studentName"
+          type="text"
+          placeholder="Например, Алина"
+        >
+
+        <label for="grade">Класс</label>
+
+        <select id="grade">
+          <option value="">Выберите класс</option>
+          <option value="5">5 класс</option>
+          <option value="6">6 класс</option>
+          <option value="7">7 класс</option>
+          <option value="8">8 класс</option>
+          <option value="9">9 класс</option>
+          <option value="10">10 класс</option>
+          <option value="11">11 класс</option>
+          <option value="adult">Взрослый</option>
+        </select>
+
+        <button id="startBtn">
+          Начать диагностику
+        </button>
+
+        <div class="small-note">
+          Без регистрации. Результат появится сразу после теста.
+        </div>
+
+      </section>
+    </div>
+
+
+    <!-- ТЕСТ -->
+    <div id="quizScreen" class="quiz-wrap hidden">
+
+      <div class="quiz-top">
+        <div class="quiz-title">ENGLISH UP · 5 класс</div>
+        <div id="questionCounter" class="question-counter"></div>
+      </div>
+
+      <div class="progress">
+        <div id="progressBar" class="progress-bar"></div>
+      </div>
+
+      <div id="category" class="category"></div>
+      <h2 id="questionText" class="question"></h2>
+
+      <div id="answers" class="answers"></div>
+
+    </div>
+
+
+    <!-- РЕЗУЛЬТАТ -->
+    <div id="resultScreen" class="results hidden">
+
+      <div class="brand">ENGLISH UP</div>
+
+      <h2 id="resultName">Результат диагностики</h2>
+
+      <div class="score-circle">
+        <div id="scoreNumber" class="score-number"></div>
+        <div>правильных</div>
+      </div>
+
+      <div id="levelText" class="level"></div>
+
+      <p id="resultDescription" class="result-text"></p>
+
+      <div id="categoryResults" class="category-results"></div>
+  <div id="recommendation" class="recommendation"></div>
+      <div class="share-result-box">
+  <h3>📋 Отправить результат преподавателю</h3>
+
+  <p>
+    Скопируйте результат диагностики и отправьте его мне в MAX.
+    Я бесплатно подскажу, какие темы лучше повторить в первую очередь.
+  </p>
+
+  <div id="shareResultText" class="share-result-text"></div>
+
+  <button id="copyResultBtn" type="button">
+    Скопировать результат
+  </button>
+
+  <div id="copyMessage" class="copy-message"></div>
+</div>
+      
+           <!-- СПРАВОЧНАЯ ИНФОРМАЦИЯ -->
+
+<div class="info-section">
+
+  <h3>Что проверяет диагностика</h3>
+
+  <p>
+    Диагностика проверяет базовые знания английского языка,
+    необходимые ученику 5 класса: грамматику, словарный запас,
+    понимание коротких текстов и умение использовать английский
+    язык в простых ситуациях.
+  </p>
+
+  <div class="info-note">
+    Это первичная педагогическая диагностика, а не официальный
+    экзамен или тест CEFR.
+  </div>
+
+</div>
+
+
+<div class="info-section">
+
+  <h3 id="referenceTitle">Что важно знать в 5 классе</h3>
+
+  <div class="topic-grid">
+
+    <div class="topic-card">
+      <div class="topic-icon">📝</div>
+      <strong id="grammarTitle">Грамматика</strong>
+      <p id="grammarInfo">
+        to be, have got, Present Simple, Present Continuous,
+        can, there is / there are, местоимения.
+      </p>
+    </div>
+
+    <div class="topic-card">
+      <div class="topic-icon">📚</div>
+      <strong id="vocabularyTitle">Словарный запас</strong>
+      <p id="vocabularyInfo">
+        Семья, школа, дом, еда, животные, хобби,
+        дни недели, время, числа и повседневные действия.
+      </p>
+    </div>
+
+    <div class="topic-card">
+      <div class="topic-icon">📖</div>
+      <strong id="readingTitle">Чтение</strong>
+      <p id="readingInfo">
+        Понимание небольших текстов, объявлений,
+        сообщений и простых диалогов.
+      </p>
+    </div>
+
+    <div class="topic-card">
+      <div class="topic-icon">💬</div>
+      <strong id="useEnglishTitle">Use of English</strong>
+      <p id="useEnglishInfo">
+        Умение выбрать подходящее слово или
+        грамматическую конструкцию в простом контексте.
+      </p>
+    </div>
+
+  </div>
+
+</div>
+
+
+<div class="info-section">
+
+  <h3>Как понять результат</h3>
+
+  <div class="result-scale">
+
+    <div>
+      <strong>0–5 правильных</strong>
+      <span>Нужно восстановить базу. Есть пробелы в основных темах.</span>
+    </div>
+
+    <div>
+      <strong>6–10 правильных</strong>
+      <span>База есть, но некоторые знания пока нестабильны.</span>
+    </div>
+
+    <div>
+      <strong>11–13 правильных</strong>
+      <span>Хорошая база для обучения в 5 классе.</span>
+    </div>
+
+    <div>
+      <strong>14–15 правильных</strong>
+      <span>Отличный результат. Базовые темы усвоены уверенно.</span>
+    </div>
+
+  </div>
+
+</div>
+
+
+<div class="parent-note">
+  <strong>Для родителей</strong>
+
+  <p>
+    Если результат оказался ниже ожидаемого — это не оценка
+    способностей ребёнка. Диагностика помогает увидеть конкретные
+    темы, которые стоит повторить, и понять, с чего лучше начать обучение.
+  </p>
+</div>
+
+<!-- О ПРЕПОДАВАТЕЛЕ -->
+<div class="teacher-section">
+
+  <div class="teacher-photo">
+    <img src="teacher.png" alt="Диляра Рифатовна, преподаватель английского языка">
+  </div>
+
+  <div class="teacher-info">
+    <div class="teacher-label">О ПРЕПОДАВАТЕЛЕ</div>
+
+    <h3>Диляра Рифатовна</h3>
+
+    <p>
+      Преподаватель английского языка. Помогаю школьникам и взрослым
+      системно закрывать пробелы, увереннее говорить и понимать английский.
+    </p>
+
+    <p>
+      В работе использую современные интерактивные материалы и ИИ-инструменты,
+      чтобы обучение было понятным, практичным и интересным.
+    </p>
+
+    <div class="teacher-bonus">
+      ✓ После диагностики вы получите персональные рекомендации по темам,
+      на которые стоит обратить внимание.
+    </div>
+  </div>
+
+</div>
+<div class="contact-box">
+
+  <div class="contact-icon">💙</div>
+
+  <h3>Хотите получить разбор результата?</h3>
+
+  <p>
+    Я помогу определить основные пробелы и подскажу,
+    на какие темы стоит обратить внимание в первую очередь.
+  </p>
+
+  <a
+  href="https://max.ru/u/f9LHodD0cOKm_GKqf0Hehgeo12NaGXwVHEg-OvFtvxIX-oenJ9Ybph8Py-8"
+  target="_blank"
+  class="analysis-btn"
+>
+  Получить бесплатный разбор в MAX
+</a>
+
+      <button class="restart" onclick="restartTest()">
+        Пройти ещё раз
+      </button>
+
+    </div>
+
+  </div>
+</div>
+
+
+<script>
+
+const questions5 = [
+
+  {
+    category: "Grammar",
+    topic: "глагол to be с I",
+    question: "My name ___ Tom.",
+    answers: ["am", "is", "are", "be"],
+    correct: 1
+  },
+
+  {
+    category: "Grammar",
+    topic: "глагол to be с they",
+    question: "They ___ from Russia.",
+    answers: ["is", "am", "are", "be"],
+    correct: 2
+  },
+
+  {
+    category: "Grammar",
+    topic: "have got / has got",
+    question: "She ___ a cat.",
+    answers: ["have got", "has got", "got has", "have"],
+    correct: 1
+  },
+
+  {
+    category: "Grammar",
+    topic: "there is / there are",
+    question: "There ___ two books on the table.",
+    answers: ["is", "are", "am", "be"],
+    correct: 1
+  },
+
+  {
+    category: "Grammar",
+    topic: "Present Simple с he / she / it",
+    question: "Tom ___ football every Saturday.",
+    answers: ["play", "plays", "playing", "is play"],
+    correct: 1
+  },
+
+  {
+    category: "Grammar",
+    topic: "Present Continuous",
+    question: "Look! The children ___ now.",
+    answers: ["run", "runs", "are running", "is running"],
+    correct: 2
+  },
+
+  {
+    category: "Vocabulary",
+    topic: "антонимы",
+    question: "Choose the opposite of BIG.",
+    answers: ["long", "small", "short", "old"],
+    correct: 1
+  },
+
+  {
+    category: "Vocabulary",
+    topic: "слова по теме «дом»",
+    question: "Which word means «кухня»?",
+    answers: ["bedroom", "bathroom", "kitchen", "garden"],
+    correct: 2
+  },
+
+  {
+    category: "Vocabulary",
+    topic: "животные",
+    question: "Which animal can fly?",
+    answers: ["dog", "bird", "horse", "fish"],
+    correct: 1
+  },
+
+  {
+    topic: "школьные принадлежности",
+    category: "Vocabulary",
+    question: "We usually write with a ___.",
+    answers: ["pencil", "plate", "shoe", "door"],
+    correct: 0
+  },
+
+  {
+    category: "Vocabulary",
+    topic: "дни недели",
+    question: "Monday, Tuesday, Wednesday are ___.",
+    answers: ["months", "seasons", "days of the week", "numbers"],
+    correct: 2
+  },
+
+  {
+    category: "Reading",
+    topic: "понимание последовательности событий",
+    question:
+      "Ben gets up at 7 o'clock. He has breakfast and goes to school. What does Ben do after he gets up?",
+    answers: [
+      "He goes to bed.",
+      "He has breakfast.",
+      "He plays football.",
+      "He watches TV."
+    ],
+    correct: 1
+  },
+
+  {
+    category: "Reading",
+    topic: "понимание родственных связей",
+    question:
+      "Anna has got a brother. His name is Max. Who is Max?",
+    answers: [
+      "Anna's father",
+      "Anna's friend",
+      "Anna's brother",
+      "Anna's teacher"
+    ],
+    correct: 2
+  },
+
+  {
+    category: "Reading",
+    topic: "времена года",
+    question:
+      "It's cold and snowy today. What season is it probably?",
+    answers: ["Summer", "Winter", "Spring", "Autumn"],
+    correct: 1
+  },
+
+  {
+    category: "Use of English",
+    topic: "модальный глагол can",
+    question: "Choose the correct sentence.",
+    answers: [
+      "He can swims.",
+      "He cans swim.",
+      "He can swim.",
+      "He can swimming."
+    ],
+    correct: 2
+  }
+
+];
+
+const questions6 = [
+
+  {
+    category: "Grammar",
+    topic: "Present Simple",
+    question: "My sister ___ to school by bus every day.",
+    answers: ["go", "goes", "is going", "went"],
+    correct: 1
+  },
+
+  {
+    category: "Grammar",
+    topic: "Present Continuous",
+    question: "Be quiet! The baby ___.",
+    answers: ["sleeps", "sleep", "is sleeping", "slept"],
+    correct: 2
+  },
+
+  {
+    category: "Grammar",
+    topic: "Past Simple",
+    question: "We ___ a film yesterday.",
+    answers: ["watch", "watches", "watched", "are watching"],
+    correct: 2
+  },
+
+  {
+    category: "Grammar",
+    topic: "was / were",
+    question: "They ___ at home last Sunday.",
+    answers: ["was", "were", "are", "is"],
+    correct: 1
+  },
+
+  {
+    category: "Grammar",
+    topic: "some / any",
+    question: "There isn't ___ juice in the fridge.",
+    answers: ["some", "any", "many", "a"],
+    correct: 1
+  },
+
+  {
+    category: "Grammar",
+    topic: "much / many",
+    question: "How ___ apples do we need?",
+    answers: ["much", "many", "any", "some"],
+    correct: 1
+  },
+
+  {
+    category: "Grammar",
+    topic: "степени сравнения прилагательных",
+    question: "A train is usually ___ than a bus.",
+    answers: ["fast", "faster", "fastest", "more fast"],
+    correct: 1
+  },
+
+  {
+    category: "Vocabulary",
+    topic: "семья",
+    question: "Your mother's brother is your ___.",
+    answers: ["cousin", "uncle", "nephew", "grandfather"],
+    correct: 1
+  },
+
+  {
+    category: "Vocabulary",
+    topic: "школа",
+    question: "We use a ___ to write on the board.",
+    answers: ["chalk", "pillow", "ticket", "spoon"],
+    correct: 0
+  },
+
+  {
+    category: "Vocabulary",
+    topic: "свободное время",
+    question: "I like ___ photos in my free time.",
+    answers: ["taking", "take", "took", "takes"],
+    correct: 0
+  },
+
+  {
+    category: "Vocabulary",
+    topic: "еда",
+    question: "Which food is usually made from milk?",
+    answers: ["cheese", "bread", "rice", "carrot"],
+    correct: 0
+  },
+
+  {
+    category: "Reading",
+    topic: "понимание короткого текста о путешествии",
+    question: "Kate is visiting London. She wants to see Big Ben and take photos. What does Kate want to see?",
+    answers: ["A school", "Big Ben", "A supermarket", "A cinema"],
+    correct: 1
+  },
+
+  {
+    category: "Reading",
+    topic: "понимание короткого текста о распорядке дня",
+    question: "Sam gets up at seven, has breakfast and walks to school. How does Sam go to school?",
+    answers: ["By bus", "By bike", "On foot", "By train"],
+    correct: 2
+  },
+
+  {
+    category: "Use of English",
+    topic: "предлоги времени и места",
+    question: "The lesson starts ___ nine o'clock, and the books are ___ the table.",
+    answers: ["in / at", "at / on", "on / in", "under / at"],
+    correct: 1
+  },
+
+  {
+    category: "Use of English",
+    topic: "can / must / should",
+    question: "You ___ do your homework before you play computer games.",
+    answers: ["must", "can", "shouldn't", "are"],
+    correct: 0
+  }
+
+];
+
+const questions7 = [
+
+  {
+    category: "Grammar",
+    topic: "Present Simple и Present Continuous",
+    question: "Look! The students ___ a project now.",
+    answers: ["work", "works", "are working", "worked"],
+    correct: 2
+  },
+
+  {
+    category: "Grammar",
+    topic: "Past Simple",
+    question: "Kate ___ her grandmother last weekend.",
+    answers: ["visits", "visited", "is visiting", "visit"],
+    correct: 1
+  },
+
+  {
+    category: "Grammar",
+    topic: "Past Continuous",
+    question: "At eight o'clock yesterday evening, I ___ dinner.",
+    answers: ["cook", "cooked", "was cooking", "am cooking"],
+    correct: 2
+  },
+
+  {
+    category: "Grammar",
+    topic: "Future Simple",
+    question: "I think it ___ sunny tomorrow.",
+    answers: ["is", "was", "will be", "be"],
+    correct: 2
+  },
+
+  {
+    category: "Grammar",
+    topic: "Present Perfect",
+    question: "Tom ___ just ___ his homework.",
+    answers: ["has / finished", "have / finish", "is / finishing", "did / finished"],
+    correct: 0
+  },
+
+  {
+    category: "Grammar",
+    topic: "степени сравнения прилагательных",
+    question: "This exercise is ___ than the previous one.",
+    answers: ["easy", "easier", "easiest", "more easy"],
+    correct: 1
+  },
+
+  {
+    category: "Grammar",
+    topic: "some / any / much / many",
+    question: "How ___ water do you drink every day?",
+    answers: ["many", "much", "some", "any"],
+    correct: 1
+  },
+
+  {
+    category: "Vocabulary",
+    topic: "школа и образование",
+    question: "A person who teaches students is a ___.",
+    answers: ["teacher", "pilot", "doctor", "waiter"],
+    correct: 0
+  },
+
+  {
+    category: "Vocabulary",
+    topic: "свободное время и увлечения",
+    question: "My favourite hobby is ___ music.",
+    answers: ["listening to", "listen", "listened", "listens to"],
+    correct: 0
+  },
+
+  {
+    category: "Vocabulary",
+    topic: "здоровье и образ жизни",
+    question: "To stay healthy, you should eat more ___.",
+    answers: ["vegetables", "sweets", "chips", "cola"],
+    correct: 0
+  },
+
+  {
+    category: "Vocabulary",
+    topic: "природа и окружающий мир",
+    question: "A place with many trees is called a ___.",
+    answers: ["forest", "bridge", "station", "theatre"],
+    correct: 0
+  },
+
+  {
+    category: "Reading",
+    topic: "понимание короткого текста о путешествии",
+    question: "Mia travelled to Spain by plane. She visited a museum and bought a small gift. How did Mia travel to Spain?",
+    answers: ["By train", "By plane", "By bus", "By car"],
+    correct: 1
+  },
+
+  {
+    category: "Reading",
+    topic: "понимание короткого текста о повседневной жизни",
+    question: "On Saturdays, Alex gets up late and plays basketball with his friends in the afternoon. What does Alex do on Saturday afternoon?",
+    answers: ["He studies at school.", "He goes shopping.", "He plays basketball.", "He visits his teacher."],
+    correct: 2
+  },
+
+  {
+    category: "Use of English",
+    topic: "модальные глаголы can, must, should, have to",
+    question: "You ___ wear a seat belt in a car.",
+    answers: ["must", "can", "shouldn't", "are"],
+    correct: 0
+  },
+
+  {
+    category: "Use of English",
+    topic: "местоимения и предлоги",
+    question: "This present is for ___. I bought it ___ my trip.",
+    answers: ["she / at", "her / on", "hers / in", "she / on"],
+    correct: 1
+  }
+
+];
+
+const questions8 = [
+
+  {
+    category: "Grammar",
+    topic: "Present Simple и Present Continuous",
+    question: "My brother usually ___ to school, but today he ___ the bus.",
+    answers: ["walks / is taking", "walk / takes", "is walking / takes", "walked / is taking"],
+    correct: 0
+  },
+
+  {
+    category: "Grammar",
+    topic: "Past Simple и Past Continuous",
+    question: "I ___ TV when my friend ___.",
+    answers: ["watched / called", "was watching / called", "watched / was calling", "am watching / calls"],
+    correct: 1
+  },
+
+  {
+    category: "Grammar",
+    topic: "Present Perfect и Past Simple",
+    question: "I ___ this book last year, but I ___ it again this week.",
+    answers: ["read / have read", "have read / read", "read / read", "have read / have read"],
+    correct: 0
+  },
+
+  {
+    category: "Grammar",
+    topic: "Future Simple и be going to",
+    question: "Look at those clouds! It ___.",
+    answers: ["rains", "rained", "is going to rain", "has rained"],
+    correct: 2
+  },
+
+  {
+    category: "Grammar",
+    topic: "пассивный залог",
+    question: "English ___ in many countries.",
+    answers: ["speaks", "is spoken", "spoke", "speaking"],
+    correct: 1
+  },
+
+  {
+    category: "Grammar",
+    topic: "Zero и First Conditional",
+    question: "If you heat ice, it ___.",
+    answers: ["melts", "will melt", "melted", "is melting"],
+    correct: 0
+  },
+
+  {
+    category: "Grammar",
+    topic: "степени сравнения прилагательных",
+    question: "This is the ___ film I have ever seen.",
+    answers: ["funny", "funnier", "funniest", "more funny"],
+    correct: 2
+  },
+
+  {
+    category: "Vocabulary",
+    topic: "образование",
+    question: "A place where students study after school is a ___.",
+    answers: ["library", "classroom", "school", "airport"],
+    correct: 2
+  },
+
+  {
+    category: "Vocabulary",
+    topic: "технологии",
+    question: "You can use a ___ to take photos and send messages.",
+    answers: ["smartphone", "helmet", "tent", "ticket"],
+    correct: 0
+  },
+
+  {
+    category: "Vocabulary",
+    topic: "здоровье и образ жизни",
+    question: "Regular exercise and healthy food are good for your ___.",
+    answers: ["health", "journey", "weather", "environment"],
+    correct: 0
+  },
+
+  {
+    category: "Vocabulary",
+    topic: "окружающая среда и природа",
+    question: "We should recycle paper and plastic to protect the ___.",
+    answers: ["environment", "traffic", "hobby", "lesson"],
+    correct: 0
+  },
+
+  {
+    category: "Reading",
+    topic: "понимание небольшого текста о путешествии",
+    question: "Last summer, Nina went to Italy with her parents. They stayed in Rome for five days and visited the Colosseum. Where did Nina stay?",
+    answers: ["In Rome", "In London", "At home", "At school"],
+    correct: 0
+  },
+
+  {
+    category: "Reading",
+    topic: "понимание короткой истории",
+    question: "David wanted to be healthier, so he stopped drinking cola and started walking to school. What did David stop doing?",
+    answers: ["Walking to school", "Drinking cola", "Doing homework", "Playing football"],
+    correct: 1
+  },
+
+  {
+    category: "Use of English",
+    topic: "модальные глаголы can, must, should, have to, may",
+    question: "You ___ see a doctor if you feel very ill.",
+    answers: ["should", "may not", "can to", "mustn't"],
+    correct: 0
+  },
+
+  {
+    category: "Use of English",
+    topic: "some / any / much / many / few / little",
+    question: "There are only ___ apples left, so we need to buy more.",
+    answers: ["a little", "a few", "much", "any"],
+    correct: 1
+  }
+
+];
+
+const questions9 = [
+
+  {
+    category: "Grammar",
+    topic: "Present Simple и Present Continuous",
+    question: "She usually ___ to school, but today she ___ at home.",
+    answers: ["goes / is staying", "is going / stays", "go / stay", "went / is staying"],
+    correct: 0
+  },
+
+  {
+    category: "Grammar",
+    topic: "Past Simple и Past Continuous",
+    question: "While I ___ home, it ___ to rain.",
+    answers: ["walked / started", "was walking / started", "walk / starts", "am walking / started"],
+    correct: 1
+  },
+
+  {
+    category: "Grammar",
+    topic: "Present Perfect и Past Simple",
+    question: "I ___ this film before, but I ___ it last night with my friends.",
+    answers: ["have seen / watched", "saw / have watched", "see / watched", "have seen / watch"],
+    correct: 0
+  },
+
+  {
+    category: "Grammar",
+    topic: "Future forms",
+    question: "We ___ visit the museum tomorrow. We have already bought the tickets.",
+    answers: ["are going to", "went to", "have", "were"],
+    correct: 0
+  },
+
+  {
+    category: "Grammar",
+    topic: "Passive Voice",
+    question: "The school library ___ every evening.",
+    answers: ["cleans", "is cleaned", "cleaned", "is cleaning"],
+    correct: 1
+  },
+
+  {
+    category: "Grammar",
+    topic: "Zero, First и Second Conditional",
+    question: "If I had more free time, I ___ a new hobby.",
+    answers: ["start", "will start", "would start", "started"],
+    correct: 2
+  },
+
+  {
+    category: "Grammar",
+    topic: "Reported Speech",
+    question: "Anna said that she ___ tired.",
+    answers: ["is", "was", "will be", "has been"],
+    correct: 1
+  },
+
+  {
+    category: "Vocabulary",
+    topic: "образование и профессии",
+    question: "A person who designs buildings is an ___.",
+    answers: ["architect", "athlete", "accountant", "artist"],
+    correct: 0
+  },
+
+  {
+    category: "Vocabulary",
+    topic: "технологии",
+    question: "You can use this device to read e-books and browse the Internet.",
+    answers: ["tablet", "suitcase", "helmet", "thermometer"],
+    correct: 0
+  },
+
+  {
+    category: "Vocabulary",
+    topic: "здоровье и образ жизни",
+    question: "Doing sport regularly helps you keep ___.",
+    answers: ["fit", "famous", "crowded", "expensive"],
+    correct: 0
+  },
+
+  {
+    category: "Vocabulary",
+    topic: "путешествия и окружающая среда",
+    question: "A person who travels to another country for a holiday is a ___.",
+    answers: ["tourist", "neighbour", "classmate", "customer"],
+    correct: 0
+  },
+
+  {
+    category: "Reading",
+    topic: "понимание адаптированного текста о подростковой жизни",
+    question: "Leo started a school podcast about music. He records a new episode every Friday and shares it with his classmates. What is Leo's podcast about?",
+    answers: ["Sport", "Music", "Travel", "Science"],
+    correct: 1
+  },
+
+  {
+    category: "Reading",
+    topic: "понимание короткого информационного текста",
+    question: "Many students now use online dictionaries. They help learners find new words quickly, but students should also check the example sentences. What should students check?",
+    answers: ["The price of a dictionary", "The colour of the cover", "Example sentences", "The weather"],
+    correct: 2
+  },
+
+  {
+    category: "Use of English",
+    topic: "Gerund и Infinitive",
+    question: "My friend enjoys ___ books in English.",
+    answers: ["read", "reading", "to reading", "reads"],
+    correct: 1
+  },
+
+  {
+    category: "Use of English",
+    topic: "Relative clauses who / which / that",
+    question: "The girl ___ sits next to me speaks three languages.",
+    answers: ["which", "where", "who", "when"],
+    correct: 2
+  }
+
+];
+
+const questions10 = [
+
+  {
+    category: "Grammar",
+    topic: "Present Perfect и Present Perfect Continuous",
+    question: "I ___ English for three years.",
+    answers: ["study", "have been studying", "studied", "am study"],
+    correct: 1
+  },
+
+  {
+    category: "Grammar",
+    topic: "Past Perfect",
+    question: "When we arrived, the film ___.",
+    answers: ["started", "has started", "had started", "starts"],
+    correct: 2
+  },
+
+  {
+    category: "Grammar",
+    topic: "Passive Voice",
+    question: "The results ___ tomorrow.",
+    answers: ["announce", "will be announced", "will announce", "announced"],
+    correct: 1
+  },
+
+  {
+    category: "Grammar",
+    topic: "Conditionals 0, 1, 2",
+    question: "If I had more time, I ___ another language.",
+    answers: ["learn", "will learn", "would learn", "learned"],
+    correct: 2
+  },
+
+  {
+    category: "Grammar",
+    topic: "Reported Speech",
+    question: "Tom said that he ___ tired.",
+    answers: ["is", "was", "will be", "has been"],
+    correct: 1
+  },
+
+  {
+    category: "Grammar",
+    topic: "Gerund и Infinitive",
+    question: "She decided ___ a university course.",
+    answers: ["take", "taking", "to take", "took"],
+    correct: 2
+  },
+
+  {
+    category: "Grammar",
+    topic: "Relative clauses",
+    question: "This is the book ___ I told you about.",
+    answers: ["who", "where", "which", "when"],
+    correct: 2
+  },
+
+  {
+    category: "Vocabulary",
+    topic: "образование и профессии",
+    question: "A person who designs computer programs is a ___.",
+    answers: ["programmer", "journalist", "pilot", "dentist"],
+    correct: 0
+  },
+
+  {
+    category: "Vocabulary",
+    topic: "технологии и СМИ",
+    question: "People often use social media to ___ news with friends.",
+    answers: ["share", "build", "repair", "borrow"],
+    correct: 0
+  },
+
+  {
+    category: "Vocabulary",
+    topic: "здоровье и образ жизни",
+    question: "Regular exercise helps you stay ___.",
+    answers: ["fit", "crowded", "famous", "narrow"],
+    correct: 0
+  },
+
+  {
+    category: "Vocabulary",
+    topic: "окружающая среда",
+    question: "Using public transport can reduce air ___.",
+    answers: ["pollution", "permission", "advice", "attention"],
+    correct: 0
+  },
+
+  {
+    category: "Reading",
+    topic: "понимание основной мысли текста",
+    question: "Emma joined a school club where students plant trees and clean local parks. Why did she join the club?",
+    answers: ["To improve the environment", "To learn to drive", "To practise cooking", "To buy new clothes"],
+    correct: 0
+  },
+
+  {
+    category: "Reading",
+    topic: "понимание деталей объявления",
+    question: "The school science fair will take place on Friday at 3 p.m. in the main hall. When is the fair?",
+    answers: ["On Thursday morning", "On Friday afternoon", "On Saturday evening", "Every Monday"],
+    correct: 1
+  },
+
+  {
+    category: "Use of English",
+    topic: "предлоги и формы глагола",
+    question: "I am interested ___ learning more about this subject.",
+    answers: ["at", "on", "in", "for"],
+    correct: 2
+  },
+
+  {
+    category: "Use of English",
+    topic: "связующие слова",
+    question: "I was tired, ___ I finished my homework.",
+    answers: ["because", "but", "so that", "unless"],
+    correct: 1
+  }
+
+];
+
+const questions11 = [
+
+  {
+    category: "Grammar",
+    topic: "Present Perfect и Present Perfect Continuous",
+    question: "She ___ for the exam since morning.",
+    answers: ["studies", "has been studying", "studied", "is study"],
+    correct: 1
+  },
+
+  {
+    category: "Grammar",
+    topic: "Past Perfect",
+    question: "By the time I called, Alex ___ home.",
+    answers: ["had left", "leaves", "has left", "was leave"],
+    correct: 0
+  },
+
+  {
+    category: "Grammar",
+    topic: "Passive Voice",
+    question: "The new bridge ___ next year.",
+    answers: ["will complete", "will be completed", "completed", "is completing"],
+    correct: 1
+  },
+
+  {
+    category: "Grammar",
+    topic: "Conditionals 0, 1, 2, 3",
+    question: "If I had known about the meeting, I ___ there.",
+    answers: ["go", "will go", "would have gone", "went"],
+    correct: 2
+  },
+
+  {
+    category: "Grammar",
+    topic: "Reported Speech",
+    question: "Mary said that she ___ the message the day before.",
+    answers: ["receives", "had received", "will receive", "is receiving"],
+    correct: 1
+  },
+
+  {
+    category: "Grammar",
+    topic: "Gerund и Infinitive",
+    question: "He avoided ___ about the problem.",
+    answers: ["talk", "to talk", "talking", "talked"],
+    correct: 2
+  },
+
+  {
+    category: "Grammar",
+    topic: "Relative clauses и articles",
+    question: "She is ___ student who won the science competition.",
+    answers: ["a", "an", "the", "no article"],
+    correct: 2
+  },
+
+  {
+    category: "Vocabulary",
+    topic: "образование и университет",
+    question: "After school, Liam wants to apply to a ___.",
+    answers: ["university", "factory", "stadium", "pharmacy"],
+    correct: 0
+  },
+
+  {
+    category: "Vocabulary",
+    topic: "наука и технологии",
+    question: "Scientists use experiments to test a ___.",
+    answers: ["hypothesis", "holiday", "headline", "neighbour"],
+    correct: 0
+  },
+
+  {
+    category: "Vocabulary",
+    topic: "общество и отношения",
+    question: "Good communication helps people solve ___.",
+    answers: ["conflicts", "suitcases", "forests", "screens"],
+    correct: 0
+  },
+
+  {
+    category: "Vocabulary",
+    topic: "здоровье и окружающая среда",
+    question: "We can protect the environment by reducing our carbon ___.",
+    answers: ["footprint", "entrance", "degree", "journey"],
+    correct: 0
+  },
+
+  {
+    category: "Reading",
+    topic: "понимание основной мысли и позиции автора",
+    question: "Many teenagers choose to volunteer in their free time. The writer says that volunteering helps them gain experience and meet new people. What is the main idea?",
+    answers: ["Volunteering can be useful and enjoyable", "Teenagers should never travel", "Experience is only possible at school", "Meeting people is always difficult"],
+    correct: 0
+  },
+
+  {
+    category: "Reading",
+    topic: "понимание деталей и простого вывода",
+    question: "Nora takes the train because it is faster than the bus and produces less pollution. Why does Nora choose the train?",
+    answers: ["It is cheaper than walking", "It is fast and more environmentally friendly", "Her friends work on the train", "The bus is not available at night"],
+    correct: 1
+  },
+
+  {
+    category: "Use of English",
+    topic: "лексическая сочетаемость и предлоги",
+    question: "Students should pay attention ___ the examples in the text.",
+    answers: ["at", "to", "for", "with"],
+    correct: 1
+  },
+
+  {
+    category: "Use of English",
+    topic: "связующие слова в контексте",
+    question: "The task was difficult; ___, everyone completed it on time.",
+    answers: ["however", "because", "unless", "so that"],
+    correct: 0
+  }
+
+];
+
+const questionsAdult = [
+
+  {
+    category: "Grammar",
+    topic: "глагол to be",
+    question: "I ___ from Russia.",
+    answers: ["am", "is", "are", "be"],
+    correct: 0
+  },
+
+  {
+    category: "Grammar",
+    topic: "Present Simple",
+    question: "She ___ coffee every morning.",
+    answers: ["drink", "drinks", "drinking", "is drink"],
+    correct: 1
+  },
+
+  {
+    category: "Grammar",
+    topic: "can в просьбах",
+    question: "You need help at the airport. What can you say?",
+    answers: ["Can you help me, please?", "You help me yesterday.", "I am help me.", "Can I helping?"],
+    correct: 0
+  },
+
+  {
+    category: "Grammar",
+    topic: "there is / there are",
+    question: "___ a bus stop near the hotel.",
+    answers: ["There are", "There is", "They is", "It are"],
+    correct: 1
+  },
+
+  {
+    category: "Vocabulary",
+    topic: "аэропорт и паспортный контроль",
+    question: "At passport control, an officer may ask for your ___.",
+    answers: ["passport", "menu", "pillow", "ticket machine"],
+    correct: 0
+  },
+
+  {
+    category: "Vocabulary",
+    topic: "отель и заселение",
+    question: "You have a booking at a hotel. What do you say?",
+    answers: ["I have a reservation.", "I am a reservation.", "I do reservation.", "I can reservation."],
+    correct: 0
+  },
+
+  {
+    category: "Vocabulary",
+    topic: "ресторан и заказ еды",
+    question: "You want coffee in a cafe. What can you say?",
+    answers: ["I'd like a coffee, please.", "I coffee yesterday.", "Coffee is go.", "I am a coffee."],
+    correct: 0
+  },
+
+  {
+    category: "Vocabulary",
+    topic: "такси и транспорт",
+    question: "What do you ask a taxi driver?",
+    answers: ["Could you take me to the station, please?", "Do you station me?", "I am station.", "Take is the station?"],
+    correct: 0
+  },
+
+  {
+    category: "Vocabulary",
+    topic: "магазин и цена",
+    question: "How much is this?",
+    answers: ["Сколько это стоит?", "Где находится отель?", "Который час?", "Где мой чемодан?"],
+    correct: 0
+  },
+
+  {
+    category: "Reading",
+    topic: "расписание завтрака в отеле",
+    question: "Hotel notice: Breakfast: 7:00–10:00. When can you have breakfast?",
+    answers: ["At 6:00", "From 7:00 to 10:00", "At 11:00", "Only in the evening"],
+    correct: 1
+  },
+
+  {
+    category: "Reading",
+    topic: "вопрос о дороге",
+    question: "Where is the train station?",
+    answers: ["Где железнодорожный вокзал?", "Когда отправляется поезд?", "Сколько стоит билет?", "Где мой чемодан?"],
+    correct: 0
+  },
+
+  {
+    category: "Reading",
+    topic: "сообщение о времени встречи",
+    question: "Message: Meet me at the cafe at 6 p.m. Where should you meet?",
+    answers: ["At the airport", "At the cafe", "At the hotel", "At the station"],
+    correct: 1
+  },
+
+  {
+    category: "Use of English",
+    topic: "простые вопросы с do / does",
+    question: "___ you speak English?",
+    answers: ["Are", "Do", "Does", "Is"],
+    correct: 1
+  },
+
+  {
+    category: "Use of English",
+    topic: "some / any в бытовой ситуации",
+    question: "Could I have ___ water, please?",
+    answers: ["some", "any", "many", "a"],
+    correct: 0
+  },
+
+  {
+    category: "Use of English",
+    topic: "благодарность и простые просьбы",
+    question: "Someone helps you with your suitcase. What do you say?",
+    answers: ["Thank you very much.", "Where is the suitcase?", "I am suitcase.", "How much time?"],
+    correct: 0
+  }
+
+];
+
+
+let currentQuestion = 0;
+let score = 0;
+let studentName = "";
+let selectedGrade = "5";
+let selectedQuestions = questions5;
+let incorrectTopics = new Set();
+
+let categoryScores = {
+  Grammar: { correct: 0, total: 0 },
+  Vocabulary: { correct: 0, total: 0 },
+  Reading: { correct: 0, total: 0 },
+  "Use of English": { correct: 0, total: 0 }
+};
+
+
+const startScreen = document.getElementById("startScreen");
+const quizScreen = document.getElementById("quizScreen");
+const resultScreen = document.getElementById("resultScreen");
+
+const startBtn = document.getElementById("startBtn");
+
+
+startBtn.addEventListener("click", () => {
+
+  studentName =
+    document.getElementById("studentName").value.trim();
+
+  const grade =
+    document.getElementById("grade").value;
+
+
+  if (!studentName) {
+    alert("Введите имя ученика.");
+    return;
+  }
+
+
+  if (!grade) {
+    alert("Выберите класс.");
+    return;
+  }
+
+
+  if (grade !== "5" && grade !== "6" && grade !== "7" && grade !== "8" && grade !== "9" && grade !== "10" && grade !== "11" && grade !== "adult") {
+
+    alert(
+      "Диагностика пока доступна для 5–11 классов и взрослых."
+    );
+
+    return;
+  }
+
+  selectedGrade = grade;
+  selectedQuestions = grade === "adult"
+    ? questionsAdult
+    : grade === "11"
+      ? questions11
+    : grade === "10"
+      ? questions10
+      : grade === "9"
+        ? questions9
+    : grade === "8"
+      ? questions8
+      : grade === "7"
+        ? questions7
+        : grade === "6"
+          ? questions6
+          : questions5;
+  updateReferenceInfo();
+
+  document.querySelector(".quiz-title").textContent =
+    `ENGLISH UP · ${selectedGrade} класс`;
+
+
+  startScreen.classList.add("hidden");
+  quizScreen.classList.remove("hidden");
+
+  showQuestion();
+
+});
+
+
+function updateReferenceInfo() {
+
+  const isAdult = selectedGrade === "adult";
+  const isSixthGrade = selectedGrade === "6";
+  const isSeventhGrade = selectedGrade === "7";
+  const isEighthGrade = selectedGrade === "8";
+  const isNinthGrade = selectedGrade === "9";
+  const isTenthGrade = selectedGrade === "10";
+  const isEleventhGrade = selectedGrade === "11";
+
+  document.getElementById("referenceTitle").textContent =
+    isAdult
+      ? "Какие навыки проверяет диагностика"
+      : isEleventhGrade
+        ? "Что важно знать в 11 классе"
+      : isTenthGrade
+        ? "Что важно знать в 10 классе"
+        : isNinthGrade
+          ? "Что важно знать в 9 классе"
+      : isEighthGrade
+        ? "Что важно знать в 8 классе"
+        : isSeventhGrade
+          ? "Что важно знать в 7 классе"
+          : isSixthGrade
+            ? "Что важно знать в 6 классе"
+            : "Что важно знать в 5 классе";
+
+  document.getElementById("grammarTitle").textContent =
+    "Грамматика";
+  document.getElementById("vocabularyTitle").textContent =
+    isAdult ? "Разговорные ситуации" : "Словарный запас";
+  document.getElementById("readingTitle").textContent =
+    isAdult ? "Понимание английского" : "Чтение";
+  document.getElementById("useEnglishTitle").textContent =
+    isAdult ? "Путешествия" : "Use of English";
+
+  document.getElementById("grammarInfo").textContent =
+    isAdult
+      ? "Глагол to be, Present Simple, can, базовый Past Simple, there is/there are и простые вопросы."
+      : isEleventhGrade
+        ? "Уверенное владение основными временами, Perfect forms, Passive Voice, модальными глаголами, условными предложениями, косвенной речью, gerund/infinitive и relative clauses."
+      : isTenthGrade
+        ? "Основные времена английского языка, Perfect forms, Passive Voice, модальные глаголы, условные предложения, косвенная речь, gerund/infinitive и relative clauses."
+        : isNinthGrade
+          ? "Основные времена английского языка, Present Perfect, Future forms, Passive Voice, модальные глаголы, условные предложения, базовая косвенная речь, gerund/infinitive и relative clauses."
+      : isEighthGrade
+        ? "Основные времена группы Present и Past, Present Perfect, Future Simple, be going to, базовый пассивный залог, модальные глаголы, Zero и First Conditional, степени сравнения и основные грамматические конструкции."
+        : isSeventhGrade
+          ? "Present Simple, Present Continuous, Past Simple, Past Continuous, Future Simple, базовый Present Perfect, модальные глаголы, степени сравнения и основные грамматические конструкции."
+          : isSixthGrade
+            ? "Present Simple, Present Continuous, Past Simple, was/were, there is/there are, some/any, much/many, can, must, should, степени сравнения прилагательных, базовые предлоги."
+            : "to be, have got, Present Simple, Present Continuous, can, there is / there are, местоимения.";
+
+  document.getElementById("vocabularyInfo").textContent =
+    isAdult
+      ? "Знакомство, просьбы, вопросы, благодарность и простое повседневное общение."
+      : isEleventhGrade
+        ? "Образование, будущая профессия, технологии, наука, общество, здоровье, отношения, окружающая среда, путешествия, СМИ и повседневное общение."
+      : isTenthGrade
+        ? "Образование, профессии, технологии, путешествия, отношения, здоровье, окружающая среда, СМИ и повседневное общение."
+        : isNinthGrade
+          ? "Образование, профессии, технологии, здоровье, путешествия, окружающая среда, подростковая жизнь и повседневное общение."
+      : isEighthGrade
+        ? "Образование, технологии, путешествия, здоровье, окружающая среда, свободное время, повседневные ситуации и бытовая лексика."
+        : isSeventhGrade
+          ? "Школа, свободное время, путешествия, здоровье, образ жизни, природа, повседневные ситуации и базовая бытовая лексика."
+          : isSixthGrade
+            ? "Семья, школа, свободное время, еда, путешествия и места, повседневные действия, погода, покупки и базовая бытовая лексика."
+            : "Семья, школа, дом, еда, животные, хобби, дни недели, время, числа и повседневные действия.";
+
+  document.getElementById("readingInfo").textContent =
+    isAdult
+      ? "Короткие сообщения, объявления, таблички, меню и простые бытовые фразы."
+      : isEleventhGrade
+        ? "Понимание текстов средней длины, основной мысли, деталей, простых выводов и отношения автора."
+      : isTenthGrade
+        ? "Понимание адаптированных текстов средней длины, основной мысли, деталей и простых логических связей."
+        : isNinthGrade
+          ? "Понимание адаптированных текстов средней длины, сообщений, описаний, историй и несложных информационных текстов."
+      : isEighthGrade
+        ? "Понимание небольших адаптированных текстов, сообщений, объявлений, описаний и коротких историй."
+        : isSeventhGrade
+          ? "Понимание коротких историй, сообщений, объявлений, описаний и несложных текстов."
+          : isSixthGrade
+            ? "Понимание коротких текстов, сообщений, объявлений, описаний, простых историй и диалогов."
+            : "Понимание небольших текстов, объявлений, сообщений и простых диалогов.";
+
+  document.getElementById("useEnglishInfo").textContent =
+    isAdult
+      ? "Аэропорт, отель, кафе и ресторан, магазин, транспорт, дорога и основные ситуации туриста."
+      : isEleventhGrade
+        ? "Умение выбрать правильную грамматическую форму, слово, предлог, связующее слово или конструкцию в контексте."
+      : isTenthGrade
+        ? "Выбор правильной грамматической формы, слова, предлога или конструкции в контексте."
+        : isNinthGrade
+          ? "Выбор правильной грамматической формы, подходящего слова, предлога или конструкции в контексте."
+      : isEighthGrade
+        ? "Умение выбрать правильную форму глагола, слово или грамматическую конструкцию в контексте."
+        : isSeventhGrade
+          ? "Выбор правильной формы глагола, слова или грамматической конструкции в контексте."
+          : "Умение выбрать подходящее слово или грамматическую конструкцию в простом контексте.";
+
+}
+
+
+function showQuestion() {
+
+  const q = selectedQuestions[currentQuestion];
+
+  document.getElementById("questionCounter").textContent =
+    `Вопрос ${currentQuestion + 1} из ${selectedQuestions.length}`;
+
+  document.getElementById("progressBar").style.width =
+    `${((currentQuestion + 1) / selectedQuestions.length) * 100}%`;
+
+  document.getElementById("category").textContent =
+    q.category;
+
+  document.getElementById("questionText").textContent =
+    q.question;
+
+
+  const answersContainer =
+    document.getElementById("answers");
+
+  answersContainer.innerHTML = "";
+
+
+  q.answers.forEach((answer, index) => {
+
+    const button =
+      document.createElement("button");
+
+    button.className = "answer-btn";
+
+    button.textContent =
+      `${String.fromCharCode(65 + index)}. ${answer}`;
+
+    button.onclick = () =>
+      selectAnswer(index);
+
+    answersContainer.appendChild(button);
+
+  });
+
+}
+
+
+function selectAnswer(selectedIndex) {
+
+  const q = selectedQuestions[currentQuestion];
+
+  categoryScores[q.category].total++;
+
+
+  if (selectedIndex === q.correct) {
+
+    score++;
+
+    categoryScores[q.category].correct++;
+
+  } else {
+
+    incorrectTopics.add(q.topic);
+
+  }
+
+
+  currentQuestion++;
+
+
+  if (currentQuestion < selectedQuestions.length) {
+
+    showQuestion();
+
+  } else {
+
+    showResults();
+
+  }
+
+}
+
+
+function showResults() {
+
+  quizScreen.classList.add("hidden");
+  resultScreen.classList.remove("hidden");
+
+
+  document.getElementById("resultName").textContent =
+    `${studentName}, вот результат диагностики`;
+
+
+  document.getElementById("scoreNumber").textContent =
+    `${score}/${selectedQuestions.length}`;
+
+
+  const percent =
+    Math.round((score / selectedQuestions.length) * 100);
+
+
+  let level = "";
+  let description = "";
+  let recommendation = "";
+
+
+  if (score <= 5) {
+
+    level = "Есть заметные пробелы";
+
+    description =
+      "Базовые темы пока вызывают трудности. Это хороший момент, чтобы спокойно восстановить фундамент.";
+
+    recommendation =
+      "<strong>Рекомендация преподавателя:</strong><br>Начать с базовой грамматики, глагола to be, Present Simple, основных слов по школьным темам и постепенно укреплять навык чтения.";
+
+  }
+
+  else if (score <= 10) {
+
+    level = "Хорошая база";
+
+    description =
+      "Основные темы знакомы, но некоторые знания пока нестабильны.";
+
+    recommendation =
+      "<strong>Рекомендация преподавателя:</strong><br>Закрепить темы, где были ошибки, расширять словарный запас и больше тренироваться применять английский в заданиях и речи.";
+
+  }
+
+  else if (score <= 13) {
+
+    level = "Уверенный уровень";
+
+    description =
+      "У ученика хорошая база для 5 класса. Большинство заданий выполнено правильно.";
+
+    recommendation =
+      "<strong>Рекомендация преподавателя:</strong><br>Можно переходить к более сложным заданиям, развивать чтение, говорение и расширять активный словарный запас.";
+
+  }
+
+  else {
+
+    level = "Отличный результат! 🌟";
+
+    description =
+      "Базовые темы выбранного класса усвоены очень хорошо.";
+
+    recommendation =
+      "<strong>Рекомендация преподавателя:</strong><br>Ребёнку можно давать задания повышенной сложности и больше внимания уделять разговорной практике и живому английскому.";
+
+  }
+
+
+  document.getElementById("levelText").textContent =
+    level;
+
+  document.getElementById("resultDescription").textContent =
+    `${percent}% правильных ответов. ${description}`;
+
+  document.getElementById("recommendation").innerHTML =
+    recommendation;
+
+
+  createCategoryResults();
+createShareResult();
+}
+
+
+function createCategoryResults() {
+
+  const container =
+    document.getElementById("categoryResults");
+
+  container.innerHTML = "";
+
+
+  for (const category in categoryScores) {
+
+    const data =
+      categoryScores[category];
+
+    if (data.total === 0)
+      continue;
+
+
+    const percent =
+      Math.round(
+        (data.correct / data.total) * 100
+      );
+
+
+    const row =
+      document.createElement("div");
+
+    row.className = "result-row";
+
+
+    row.innerHTML = `
+      <strong>
+        <span>${category}</span>
+        <span>${percent}%</span>
+      </strong>
+
+      <div class="mini-progress">
+        <div style="width:${percent}%"></div>
+      </div>
+    `;
+
+
+    container.appendChild(row);
+
+  }
+
+}
+
+
+function createShareResult() {
+
+  const grammar = categoryScores["Grammar"];
+  const vocabulary = categoryScores["Vocabulary"];
+  const reading = categoryScores["Reading"];
+  const useEnglish = categoryScores["Use of English"];
+
+  const getPercent = (data) =>
+    data.total ? Math.round((data.correct / data.total) * 100) : 0;
+
+  const text =
+`Результат диагностики ENGLISH UP
+
+Имя ученика: ${studentName}
+${selectedGrade === "adult" ? "Категория: Взрослый" : `Класс: ${selectedGrade}`}
+Результат: ${score} из ${selectedQuestions.length}
+
+По разделам:
+Grammar — ${getPercent(grammar)}%
+Vocabulary — ${getPercent(vocabulary)}%
+Reading — ${getPercent(reading)}%
+Use of English — ${getPercent(useEnglish)}%
+
+Темы для повторения:
+${incorrectTopics.size
+  ? Array.from(incorrectTopics, (topic) => `• ${topic}`).join("\n")
+  : "серьёзных пробелов по этой диагностике не выявлено."}
+
+Хочу получить бесплатный разбор результата и рекомендации преподавателя.`;
+
+  const shareBox = document.getElementById("shareResultText");
+
+  if (shareBox) {
+    shareBox.textContent = text;
+  }
+}
+
+function restartTest() {
+
+  currentQuestion = 0;
+  score = 0;
+  selectedGrade = "5";
+  selectedQuestions = questions5;
+  incorrectTopics = new Set();
+  updateReferenceInfo();
+
+  categoryScores = {
+    Grammar: { correct: 0, total: 0 },
+    Vocabulary: { correct: 0, total: 0 },
+    Reading: { correct: 0, total: 0 },
+    "Use of English": { correct: 0, total: 0 }
+  };
+
+
+  resultScreen.classList.add("hidden");
+  startScreen.classList.remove("hidden");
+
+}
+
+
+const copyResultBtn = document.getElementById("copyResultBtn");
+
+copyResultBtn.addEventListener("click", async function () {
+
+  const text = document.getElementById("shareResultText").innerText;
+
+  try {
+    await navigator.clipboard.writeText(text);
+
+    document.getElementById("copyMessage").textContent =
+      "✓ Результат скопирован! Теперь отправьте его мне в MAX.";
+
+  } catch {
+    document.getElementById("copyMessage").textContent =
+      "Не удалось скопировать автоматически. Выделите текст и скопируйте вручную.";
+  }
+
+});
+</script>
+
+</body>
+</html>
